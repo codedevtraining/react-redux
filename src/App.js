@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import Todo from './Todo/Todo';
+import { BrowserRouter } from 'react-router-dom'
 
-export default props => (
-  <div className='container'>
-    <Todo/>
-  </div>
-);
+import RoutesApp from './RoutesApp'
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <RoutesApp/>
+      </BrowserRouter>
+    )
+  }
+};
+
+export default App;
 
