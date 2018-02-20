@@ -8,10 +8,18 @@ import { API_ENDPOINT } from '../../../../environments/environmnets';
 class Todo extends Component {
   constructor(props) {
     super(props)
-    this.state = { description: '', list: [] }
+
+    this.state = { 
+      description: '',
+      done: false,
+      list: []
+    }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+    // this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
+    // this.handleMarkAsPending = this.handleMarkAsPending.bind(this)
 
     this.refresh()
   }
@@ -29,9 +37,24 @@ class Todo extends Component {
     this.setState({ ...this.state, description: e.target.value })
   }
 
+  // handleMarkAsDone(todo) {
+  //   axios.put(
+  //     `${API_ENDPOINT}/tasks${todo.id}`,
+  //     { ...todo, done: true }
+  //   ).then(res => this.refresh())
+  // }
+
+  // handleMarkAsPending(todo) {
+  //   axios.put(
+  //     `${API_ENDPOINT}/tasks${todo.id}`,
+  //     { ...todo, done: false }
+  //   ).then(res => this.refresh())
+  // }
+
   handleAdd() {
     const description = this.state.description
-    axios.post(`${API_ENDPOINT}/tasks`, { description })
+    const done = this.state.done
+    axios.post(`${API_ENDPOINT}/tasks`, { description, done })
       .then(res => this.refresh())
   }
 
@@ -52,6 +75,8 @@ class Todo extends Component {
         <TodoList 
           list={this.state.list}
           handleRemove={this.handleRemove}
+          // handleMarkAsDone={this.handleMarkAsDone}
+          // handleMarkAsPending={this.handleMarkAsPending}
         />
       </div>
     );
