@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Grid, Button } from 'semantic-ui-react';
 
 const TodoList = props => {
   const renderRows = () => { 
     const list = props.list || []
     return list.map(todo => (
-      <Grid key={todo.id}>
+      <Grid key={todo.id} >
         <Grid.Row columns={3}>
 
           <Grid.Column width={12}>
@@ -13,7 +14,7 @@ const TodoList = props => {
           </Grid.Column>
 
           <Grid.Column textAlign='center' width={4}>
-            {/* <Button 
+            <Button 
               icon='check' 
               color='green'
               onClick={() => props.handleMarkAsDone(todo)}
@@ -22,7 +23,7 @@ const TodoList = props => {
               icon='remove bookmark' 
               color='yellow'
               onClick={() => props.handleMarkAsPending(todo)}
-            /> */}
+            />
             <Button 
               icon='trash' 
               color='red'
@@ -57,4 +58,6 @@ const TodoList = props => {
   );
 };
 
-export default TodoList;
+const mapStateToProps = state => ({list: state.todo.list})
+
+export default connect(mapStateToProps)(TodoList);
